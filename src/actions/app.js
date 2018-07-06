@@ -29,19 +29,19 @@ export const navigate = (path) => (dispatch) => {
 const loadPage = (page) => (dispatch) => {
   switch(page) {
     case 'app':
-      import('../components/ecopay-app');
+      import('../components/ecopay-app.js');
       break;
     case 'signin':
-      import('../components/ecopay-login');
+      import('../components/ecopay-login.js');
       break;
     case 'home':
-      import('../components/ecopay-home');
+      import('../components/ecopay-home.js');
       break;
     case 'epayment':
-      import('../components/ecopay-epayment');
+      import('../components/ecopay-epayment.js');
       break;
     case 'merchant':
-      import('../components/ecopay-merchant');
+      import('../components/ecopay-merchant.js');
       break;
     case 'finance-management':
       import('../components/ecopay-finance-management');

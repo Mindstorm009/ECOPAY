@@ -10,19 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { html } from '@polymer/lit-element';
 import { PageViewElement } from './page-view-element.js';
-import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
-import { connect } from 'pwa-helpers/connect-mixin.js';
-
-import { store } from '../store.js';
-
-// These are the actions needed by this element.
-import wallet from '../reducers/wallet.js';
-store.addReducers({
-  wallet
-});
 
 // These are the elements needed by this element.
-import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
@@ -34,8 +23,8 @@ import './ecopay-page';
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-class EcopayHome extends connect(store)(PageViewElement) {
-  _render({_balance}) {
+class EcopayMerchant extends PageViewElement {
+  _render({_view}) {
     return html`
       ${SharedStyles}
       <style>
@@ -44,19 +33,24 @@ class EcopayHome extends connect(store)(PageViewElement) {
           @apply --layout-center-center;
         }
       </style>
-      <ecopay-page mainTitle="Home" hideBack hideFooter>
+      <ecopay-page mainTitle="Merchants"
+        backHref="/home" showBalance hideFooter>
         <section>
-          <paper-tabs on-click="${(e) => this._clickHandler(e)}">
-            <paper-tab><a href="/epayment"><iron-icon icon="credit-card"></iron-icon></a></paper-tab>
-            <paper-tab><a href="/merchant"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
-            <paper-tab><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
+        <paper-tabs selected="${_view}" attr-for-selected="name" on-selected-changed="${(e) => this._onSelectedhanged(e)}">
+            <paper-tab name="map"><a href="javascript:void(0)"><iron-icon icon="credit-card"></iron-icon></a></paper-tab>
+            <paper-tab name="jobs"><a href="javascript:void(0)"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
+            <paper-tab name="featured"><a href="javascript:void(0)"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
           </paper-tabs>
           <section>
-            <section>
-              <h1>Hi User!</h1>
-              <h1>Your eWallet: $${_balance}</h1>
+            <section hidden="${_view !== 'map'}">
+              Map
             </section>
-            <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
+            <section hidden="${_view !== 'jobs'}">
+              Jobs
+            </section>
+            <section hidden="${_view !== 'featured'}">
+              Featured
+            </section>
           <section>
         </setion>
       </ecopay-page>
@@ -64,17 +58,17 @@ class EcopayHome extends connect(store)(PageViewElement) {
   }
 
   static get properties() { return {
-    _balance: Number
+    _view: String
   }}
 
-    // This is called every time something is updated in the store.
-    _stateChanged(state) {
-      this._balance = state.wallet.balance;
-    }
+  constructor() {
+    super();
+    this._view = 'map';
+  }
 
-    _clickHandler(){
-      this.shadowRoot.querySelector('paper-tabs').selected = null;
-    }
+  _onSelectedhanged(e){
+    this._view = e.detail.value;
+  }
 }
 
-window.customElements.define('ecopay-home', EcopayHome);
+window.customElements.define('ecopay-merchant', EcopayMerchant);

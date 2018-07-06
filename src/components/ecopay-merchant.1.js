@@ -40,7 +40,7 @@ import './ecopay-page';
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-class EcopayEPayment extends connect(store)(PageViewElement) {
+class EcopayMerchant extends connect(store)(PageViewElement) {
   _render({_view,_amount,_payingTo,_selectedItemLabel}) {
     return html`
       ${SharedStyles}
@@ -168,4 +168,4 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     }
 }
 
-window.customElements.define('ecopay-epayment', EcopayEPayment);
+window.customElements.define('ecopay-merchant', EcopayMerchant);

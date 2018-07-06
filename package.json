@@ -31,7 +31,6 @@
     "@polymer/paper-input": "^3.0.0-pre.21",
     "@polymer/paper-item": "^3.0.0-pre.21",
     "@polymer/paper-listbox": "^3.0.0-pre.21",
-    "@polymer/paper-styles": "^3.0.0-pre.21",
     "@polymer/paper-tabs": "^3.0.0-pre.21",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "pwa-helpers": "^0.8.2",

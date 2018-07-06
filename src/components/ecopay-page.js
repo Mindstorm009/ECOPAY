@@ -64,7 +64,7 @@ class EcopayPage extends connect(store)(LitElement) {
       <app-header-layout has-scrolling-region fullbleed>
         <app-header slot="header" fixed condenses effects="waterfall">
           <app-toolbar>
-            <a href="${backHref}" hidden="${hideBack}">
+            <a href="${backHref}" hidden="${hideBack}" on-click="${(e) => this._onBackClick(e)}">
               <paper-icon-button icon="arrow-back"></paper-icon-button>
             </a>
             <div main-title>${mainTitle}</div>
@@ -79,10 +79,10 @@ class EcopayPage extends connect(store)(LitElement) {
           <slot></slot>
         </main>
         <footer hidden="${hideFooter}">
-          <a href="${closeHref}">
+          <a href="${closeHref}" on-click="${(e) => this._onCloseClick(e)}">
             <paper-icon-button icon="icons:highlight-off"></paper-icon-button>
           </a>
-          <a href="${confirmHref}">
+          <a href="${confirmHref}" on-click="${(e) => this._onConfirmClick(e)}">
             <paper-icon-button icon="av:play-arrow"></paper-icon-button>
           </a>
        </footer>
@@ -105,6 +105,18 @@ class EcopayPage extends connect(store)(LitElement) {
   // This is called every time something is updated in the store.
   _stateChanged(state) {
     this._balance = state.wallet.balance;
+  }
+
+  _onBackClick(){
+    this.dispatchEvent(new CustomEvent('back-clicked', {bubbles: false}));
+  }
+
+  _onCloseClick(){
+    this.dispatchEvent(new CustomEvent('close-clicked', {bubbles: false}));
+  }
+
+  _onConfirmClick(){
+    this.dispatchEvent(new CustomEvent('confirm-clicked'));
   }
 }
 
