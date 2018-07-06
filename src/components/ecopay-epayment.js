@@ -57,10 +57,10 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
         closeHref="/home" showBalance>
         <section>
         <paper-tabs on-click="${(e) => this._onTabClick(e)}" selected="0">
-            <paper-tab><a href="/epayment"><iron-icon icon="credit-card"></iron-icon></a></paper-tab>
-            <paper-tab><a href="/merchant"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
-            <paper-tab><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
-          </paper-tabs>
+          <paper-tab title="ePayment"><a href="/epayment"><iron-icon icon="credit-card"></iron-icon></a></paper-tab>
+          <paper-tab title="Merchant"><a href="/merchant"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
+          <paper-tab title="Finance managment"><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
+        </paper-tabs>
           <section>
             <section hidden="${_view === 'confirmation'}">
               <paper-input label="Key In Amount" type="number"

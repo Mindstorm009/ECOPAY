@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.21",
+    "@polymer/iron-collapse": "^3.0.0-pre.21",
     "@polymer/iron-flex-layout": "^3.0.0-pre.21",
     "@polymer/iron-icons": "^3.0.0-pre.21",
     "@polymer/iron-image": "^3.0.0-pre.21",

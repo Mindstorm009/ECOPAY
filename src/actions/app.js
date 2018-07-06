@@ -44,7 +44,7 @@ const loadPage = (page) => (dispatch) => {
       import('../components/ecopay-merchant.js');
       break;
     case 'finance-management':
-      import('../components/ecopay-finance-management');
+      import('../components/ecopay-finance-management.js');
       break;
     default:
       page = 'view404';

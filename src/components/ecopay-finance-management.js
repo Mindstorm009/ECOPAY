@@ -13,17 +13,19 @@ import { PageViewElement } from './page-view-element.js';
 
 // These are the elements needed by this element.
 import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-icons/maps-icons.js';
-import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/editor-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
+import '@polymer/iron-collapse/iron-collapse.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import './ecopay-page';
+import './ecopay-page.js';
+import './ecopay-transaction-row.js';
 
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-class EcopayMerchant extends PageViewElement {
+class EcopayFinanceManagement extends PageViewElement {
   _render({_view}) {
     return html`
       ${SharedStyles}
@@ -33,25 +35,29 @@ class EcopayMerchant extends PageViewElement {
           @apply --layout-center-center;
         }
       </style>
-      <ecopay-page mainTitle="${ this._getTitle(_view) }"
+      <ecopay-page mainTitle="Finance Management"
         backHref="/home" showBalance hideFooter>
         <section>
         <paper-tabs selected="${_view}" attr-for-selected="name" on-selected-changed="${(e) => this._onSelectedhanged(e)}">
-            <paper-tab name="map" title="Find"><a href="javascript:void(0)"><iron-icon icon="maps:place"></iron-icon></a></paper-tab>
-            <paper-tab name="jobs" title="Jobs"><a href="javascript:void(0)"><iron-icon icon="social:person"></iron-icon></a></paper-tab>
-            <paper-tab name="featured" title="Featured"><a href="javascript:void(0)"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
+            <paper-tab name="overview" title="Overview Spending"><a href="javascript:void(0)"><iron-icon icon="editor:monetization-on"></iron-icon></a></paper-tab>
+            <paper-tab name="history" title="History"><a href="javascript:void(0)"><iron-icon icon="icons:assignment"></iron-icon></a></paper-tab>
+            <paper-tab name="help" title="Help"><a href="javascript:void(0)"><iron-icon icon="icons:help"></iron-icon></a></paper-tab>
           </paper-tabs>
           <section>
-            <section hidden="${_view !== 'map'}">
-              Map
+            <section hidden="${_view !== 'overview'}">
+              <div>Overview Spending</div>
+              <div class="overview-circle">
+                <div>$ </div>
+                <div>842.00</div>
+              </div>
             </section>
-            <section hidden="${_view !== 'jobs'}">
-              Jobs
+            <section hidden="${_view !== 'history'}">
+              <ecopay-transaction-row></ecopay-transaction-row>
             </section>
-            <section hidden="${_view !== 'featured'}">
-              Featured
+            <section hidden="${_view !== 'help'}">
+              Help
             </section>
-          <section>
+          </section>
         </setion>
       </ecopay-page>
     `;
@@ -63,17 +69,7 @@ class EcopayMerchant extends PageViewElement {
 
   constructor() {
     super();
-    this._view = 'map';
-  }
-
-  _getTitle(view){
-    if(view === 'jobs'){
-      return 'Merchant - Jobs';
-    }
-    if(view === 'featured'){
-      return 'Merchant - Featured';
-    }
-    return 'Merchant';
+    this._view = 'history';
   }
 
   _onSelectedhanged(e){
@@ -81,4 +77,4 @@ class EcopayMerchant extends PageViewElement {
   }
 }
 
-window.customElements.define('ecopay-merchant', EcopayMerchant);
+window.customElements.define('ecopay-finance-management', EcopayFinanceManagement);
