@@ -9,9 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { LitElement, html } from '@polymer/lit-element';
+import { repeat } from 'lit-html/lib/repeat.js';
 
 // These are the elements needed by this element.
 import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/hardware-icons.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 
@@ -19,30 +21,50 @@ import '@polymer/iron-collapse/iron-collapse.js';
 import { SharedStyles } from './shared-styles.js';
 
 class EcopayTransactionRow extends LitElement {
-  _render() {
+  _render({opened,item}) {
     return html`
       ${SharedStyles}
       <style>
        
       </style>
       <section class="row">
-        <section class="header" on-click="">
-          <section>Bills</section>
-          <section>$ 32.00</section>
+        <section class="header" on-click="${(e) => this._onRowClick(e)}">
+          <section>${item.category}</section>
+          <section>$ ${item.total}</section>
         </section>
-        <iron-collapse>
+        <iron-collapse opened="${opened}" on-opened-changed="${(e) => this._onOpenedChanged(e)}">
           <section class="table">
-            My content here
+          ${repeat(item.items, (i) => i.date, (i, index) => html`
+            <div class="row">
+              <div>${i.paidTo}</div>
+              <div>${i.date}</div>
+              <div>$ ${i.amount}</div>
+            </div>`)}
           </section>
         </iron-collapse>
       </section>
-      <iron-icon></iron-icon>
+      <iron-icon icon="hardware:keyboard-arrow-right" hidden="${opened}"></iron-icon>
+      <iron-icon icon="hardware:keyboard-arrow-down" hidden="${!opened}"></iron-icon>
     `;
   }
 
   static get properties() { return {
-    item: Object
+    item: Object,
+    opened: Boolean
   }}
+
+  constructor() {
+    super();
+    this.opened = false;
+  }
+
+  _onRowClick(){
+    this.opened = !this.opened;
+  }
+
+  _onOpenedChanged(e){
+    this.opened = e.detail.value;
+  }
 }
 
 window.customElements.define('ecopay-transaction-row', EcopayTransactionRow);

@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { html } from '@polymer/lit-element';
+import { repeat } from 'lit-html/lib/repeat.js';
+
 import { PageViewElement } from './page-view-element.js';
 
 // These are the elements needed by this element.
@@ -26,7 +28,7 @@ import './ecopay-transaction-row.js';
 import { SharedStyles } from './shared-styles.js';
 
 class EcopayFinanceManagement extends PageViewElement {
-  _render({_view}) {
+  _render({_view,_transactions}) {
     return html`
       ${SharedStyles}
       <style>
@@ -52,7 +54,8 @@ class EcopayFinanceManagement extends PageViewElement {
               </div>
             </section>
             <section hidden="${_view !== 'history'}">
-              <ecopay-transaction-row></ecopay-transaction-row>
+              ${repeat(_transactions, (i) => i.category, (i, index) => html`
+                <ecopay-transaction-row item="${i}"></ecopay-transaction-row>`)}
             </section>
             <section hidden="${_view !== 'help'}">
               Help
@@ -64,12 +67,23 @@ class EcopayFinanceManagement extends PageViewElement {
   }
 
   static get properties() { return {
-    _view: String
+    _view: String,
+    _transactions: Array
   }}
 
   constructor() {
     super();
     this._view = 'history';
+    this._transactions = [{
+      category: 'Bills',
+      total: 32,
+      items : [{paidTo: 'Light Bill', date: '04/07/2018', amount: 32}]
+    }, {
+      category: 'Food & Drinks',
+      total: 500,
+      items : [{paidTo: 'Good restaurant', date: '04/07/2018', amount: 240},
+            {paidTo: 'Good Coffee', date: '05/07/2018', amount: 260}]
+    }]
   }
 
   _onSelectedhanged(e){
