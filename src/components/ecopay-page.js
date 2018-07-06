@@ -83,7 +83,7 @@ class EcopayPage extends connect(store)(LitElement) {
             <a href="${backHref}" hidden="${hideBack}" on-click="${(e) => this._onBackClick(e)}">
               <paper-icon-button class="arrow-back" icon="arrow-back"></paper-icon-button>
             </a>
-            <div class="main-title">${mainTitle}</div>
+            <div class="main-title" main-title>${mainTitle}</div>
               <div class="balance-container" hidden="${!showBalance}">
                 <iron-icon icon="account-balance-wallet"></iron-icon>
                 <div>$${_balance}</div>

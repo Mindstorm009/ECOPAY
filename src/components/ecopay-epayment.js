@@ -28,8 +28,10 @@ store.addReducers({
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
+import '@polymer/iron-icons/editor-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
+import '@polymer/paper-styles/typography.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
@@ -45,10 +47,44 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     return html`
       ${SharedStyles}
       <style>
-        paper-tab a{
-          @apply --layout-horizontal;
-          @apply --layout-center-center;
-        }
+      paper-tab a{
+        @apply --layout-horizontal;
+        @apply --layout-center-center;
+      }
+
+      .main-container {
+        @apply --layout-vertical;
+      }
+
+      .container {
+        margin-top: 48px;
+      }
+
+      .confirm-container {
+        margin: 48px 24px 24px 48px;
+      }
+      iron-icon, div[suffix] {
+        margin-right: 12px;
+      }
+
+      paper-input {
+        padding: 0px 24px;
+        --paper-input-container-input: {
+          font-size: 20px;
+        };
+      }
+
+      paper-dropdown-menu {
+        padding: 0px 24px;
+      }
+
+      .heading {
+        @apply --paper-font-headline;
+      }
+
+      .value {
+        @apply --paper-font-title;
+      }
       </style>
       <ecopay-page mainTitle="ePayment - Pay"
         on-confirm-clicked="${(e) => this._onConfirmClicked(e)}"
@@ -61,11 +97,11 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
           <paper-tab title="Merchant"><a href="/merchant"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
           <paper-tab title="Finance managment"><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
         </paper-tabs>
-          <section>
-            <section hidden="${_view === 'confirmation'}">
+          <section class="main-container"> 
+            <section class="container" hidden="${_view === 'confirmation'}">
               <paper-input label="Key In Amount" type="number"
                on-value-changed="${(e) => this._onAmounthanged(e)}">
-                <div slot="prefix">$</div>
+               <iron-icon icon="editor:attach-money" slot="prefix"></iron-icon>
               </paper-input>
               <paper-input label="Paying To"
                on-value-changed="${(e) => this._onPayingToChanged(e)}"></paper-input>
@@ -78,13 +114,13 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
                 </paper-listbox>
               </paper-dropdown-menu>
             </section>
-            <section hidden="${_view !== 'confirmation'}">
-              <div>Confirm payment</div>
-              <div>$ ${_amount}</div>
-              <div>to</div>
-              <div>${_payingTo}</div>
-              <div>for</div>
-              <div>${_selectedItemLabel}</div>
+            <section class="confirm-container" hidden="${_view !== 'confirmation'}">
+              <div class="heading">Confirm payment</div>
+              <div class="value">$ ${_amount}</div>
+              <div class="heading">to</div>
+              <div class="value">${_payingTo}</div>
+              <div class="heading">for</div>
+              <div class="value">${_selectedItemLabel}</div>
               <div>Enter pin to confirm</div>
               <paper-input label="" type="number" maxlength="6"></paper-input>
             </section>
