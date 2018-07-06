@@ -14,6 +14,9 @@ import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
 
 import { store } from '../store.js';
+import {
+  signout
+} from '../actions/app.js';
 
 // These are the actions needed by this element.
 import wallet from '../reducers/wallet.js';
@@ -27,6 +30,7 @@ import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/paper-styles/typography.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
@@ -65,6 +69,7 @@ class EcopayHome extends connect(store)(PageViewElement) {
               <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
             </section>
           <section>
+          <paper-icon-button icon="exit-to-app" on-click="${(e) => this._onSignOut(e)}"></paper-icon-button>
         </setion>
       </ecopay-page>
     `;
@@ -81,6 +86,10 @@ class EcopayHome extends connect(store)(PageViewElement) {
 
     _clickHandler(){
       this.shadowRoot.querySelector('paper-tabs').selected = null;
+    }
+
+    _onSignOut(){
+      store.dispatch(signout());
     }
 }
 

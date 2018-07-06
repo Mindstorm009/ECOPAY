@@ -17,7 +17,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../store.js';
 
 import {
-  navigate
+  navigate, signin
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -86,15 +86,10 @@ class EcopayLogin extends connect(store)(PageViewElement) {
 
   _onConfirmClicked(){
     if(this._username === '123456789' && this._password === '123456'){
-      this._navigateToHome();
+      store.dispatch(signin());
     } else {
       alert('Invalid login or password.');
     }
-  }
-
-  _navigateToHome(){
-    window.history.pushState({}, '', '/home');
-    store.dispatch(navigate(window.decodeURIComponent('/home')));
   }
 
   _onUserNameChanged(e){

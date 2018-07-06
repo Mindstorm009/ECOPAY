@@ -13,11 +13,25 @@ import {
   UPDATE_OFFLINE,
   OPEN_SNACKBAR,
   CLOSE_SNACKBAR,
-  UPDATE_DRAWER_STATE
+  UPDATE_DRAWER_STATE,
+  SIGNIN,
+  SIGNOUT
 } from '../actions/app.js';
 
-const app = (state = {drawerOpened: false}, action) => {
+const app = (state = {signin:false,drawerOpened: false}, action) => {
   switch (action.type) {
+    case SIGNIN:
+      localStorage.setItem('signIn', true);
+      return {
+        ...state,
+        signin: true
+      };
+    case SIGNOUT:
+      localStorage.removeItem('signIn');
+      return {
+        ...state,
+        signin: false
+      };
     case UPDATE_PAGE:
       return {
         ...state,

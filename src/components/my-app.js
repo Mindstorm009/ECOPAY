@@ -23,7 +23,9 @@ import { store } from '../store.js';
 import {
   navigate,
   updateOffline,
-  updateLayout
+  updateLayout,
+  signin,
+  signout
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -97,7 +99,8 @@ class MyApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _snackbarOpened: Boolean,
-      _offline: Boolean
+      _offline: Boolean,
+      _signIn: Boolean
     }
   }
 
@@ -113,23 +116,45 @@ class MyApp extends connect(store)(LitElement) {
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
     installMediaQueryWatcher(`(min-width: 460px)`,
         (matches) => store.dispatch(updateLayout(matches)));
-  }
-
-  _didRender(properties, changeList) {
-    if ('_page' in changeList) {
-      const pageTitle = properties.appTitle + ' - ' + changeList._page;
-      updateMetadata({
-          title: pageTitle,
-          description: pageTitle
-          // This object also takes an image property, that points to an img src.
-      });
-    }
+    window.addEventListener('storage', this._updateSignIn.bind(this));
+    this._updateSignIn();
   }
 
   _stateChanged(state) {
     this._page = state.app.page;
     this._offline = state.app.offline;
     this._snackbarOpened = state.app.snackbarOpened;
+    this._signIn = state.app.signin;
+    this._validateSignIn();
+  }
+
+  _validateSignIn(){
+    if(!this._signIn && this._page !== 'app' && this._page !== 'signin'){
+      this._navigateToApp();
+    }
+
+    if(this._signIn && (this._page === 'app' || this._page === 'signin')){
+      this._navigateToHome();
+    }
+  }
+
+  _navigateToHome(){
+    window.history.pushState({}, '', '/home');
+    store.dispatch(navigate(window.decodeURIComponent('/home')));
+  }
+
+  _navigateToApp(){
+    window.history.pushState({}, '', '/');
+    store.dispatch(navigate(window.decodeURIComponent('/')));
+  }
+
+  _updateSignIn(){
+    if(!this._signIn && localStorage.getItem('signIn') === 'true'){
+      store.dispatch(signin());
+    }
+    if(this._signIn && localStorage.getItem('signIn') !== 'true'){
+      store.dispatch(signout());
+    }
   }
 }
 

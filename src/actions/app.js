@@ -13,11 +13,13 @@ export const UPDATE_OFFLINE = 'UPDATE_OFFLINE';
 export const UPDATE_DRAWER_STATE = 'UPDATE_DRAWER_STATE';
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
+export const SIGNIN = 'SIGNIN';
+export const SIGNOUT = 'SIGNOUT';
 
 export const navigate = (path) => (dispatch) => {
   // Extract the page name from path.
   const page = path === '/' ? 'app' : path.slice(1);
-
+  
   // Any other info you might want to extract from the path (like page type),
   // you can do here
   dispatch(loadPage(page));
@@ -62,6 +64,18 @@ const updatePage = (page) => {
 };
 
 let snackbarTimer;
+
+export const signin = () => (dispatch) => {
+  dispatch({
+    type: SIGNIN
+  });
+};
+
+export const signout = () => (dispatch) => {
+  dispatch({
+    type: SIGNOUT
+  });
+};
 
 export const showSnackbar = () => (dispatch) => {
   dispatch({
