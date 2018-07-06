@@ -79,11 +79,15 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
       }
 
       .heading {
-        @apply --paper-font-headline;
-      }
-
-      .value {
         @apply --paper-font-title;
+        margin: 4px;
+        font-weight: bold;
+      }
+      
+      .value {
+        @apply --paper-font-headline;
+        margin: 4px;
+        font-weight: bold;
       }
       </style>
       <ecopay-page mainTitle="ePayment - Pay"
@@ -121,8 +125,8 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
               <div class="value">${_payingTo}</div>
               <div class="heading">for</div>
               <div class="value">${_selectedItemLabel}</div>
-              <div>Enter pin to confirm</div>
-              <paper-input label="" type="number" maxlength="6"></paper-input>
+              <!-- <div>Enter pin to confirm</div>
+              <paper-input label="" type="number" maxlength="6"></paper-input> -->
             </section>
           <section>
         </setion>

@@ -46,6 +46,7 @@ export const SharedStyles = html`
   paper-tab a{
     @apply --layout-horizontal;
     @apply --layout-center-center;
+    --paper-tab-ink	: var(--app-primary-color)
   }
 
   paper-tab a iron-icon {

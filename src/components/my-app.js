@@ -50,6 +50,8 @@ class MyApp extends connect(store)(LitElement) {
         --app-header-text-color: var(--app-dark-text-color);
         --app-footer-text-color: var(--app-dark-text-color);
         --app-header-selected-color: var(--app-primary-color);
+        --paper-tab-ink	: var(--app-primary-color);
+        --paper-tabs-selection-bar-color	: var(--app-primary-color);
       }
 
       /* Workaround for IE11 displaying <main> as inline */
@@ -69,6 +71,8 @@ class MyApp extends connect(store)(LitElement) {
       .page[active] {
         display: block;
       }
+
+
 
     </style>
 
