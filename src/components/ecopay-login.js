@@ -12,6 +12,14 @@ import { html } from '@polymer/lit-element';
 import { PageViewElement } from './page-view-element.js';
 import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
 
+import { connect } from 'pwa-helpers/connect-mixin.js';
+
+import { store } from '../store.js';
+
+import {
+  navigate
+} from '../actions/app.js';
+
 // These are the elements needed by this element.
 import '@polymer/iron-icons/communication-icons.js';
 import '@polymer/iron-image/iron-image.js';
@@ -22,7 +30,7 @@ import './ecopay-page';
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-class EcopayLogin extends PageViewElement {
+class EcopayLogin extends connect(store)(PageViewElement) {
   _render() {
     return html`
       ${SharedStyles}
@@ -44,14 +52,17 @@ class EcopayLogin extends PageViewElement {
           margin-right: 12px;
         }
       </style>
-      <ecopay-page mainTitle="Sign In" showBalance backHref="/" closeHref="/" confirmHref="/home">
+      <ecopay-page mainTitle="Sign In" backHref="/" closeHref="/" confirmHref="javascript:void(0)"
+       on-confirm-clicked="${(e) => this._onConfirmClicked(e)}">
         <section class="main-container">
           <section class="card">
             <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
-            <paper-input label="Mobile Number" allowed-pattern="[0-9]">
+            <paper-input label="Mobile Number" allowed-pattern="[0-9]"
+              on-value-changed="${(e) => this._onUserNameChanged(e)}">
                 <iron-icon icon="communication:stay-primary-portrait" slot="prefix"></iron-icon>
             </paper-input>
-            <paper-input label="Password" type="password">
+            <paper-input label="Password" type="password"
+            on-value-changed="${(e) => this._onPasswordhanged(e)}">
                 <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
             </paper-input>
             <paper-button>Forgot password?</paper-button>
@@ -61,7 +72,35 @@ class EcopayLogin extends PageViewElement {
     `;
   }
 
-  static get properties() { return {}}
+  static get properties() { return {
+    _username: String,
+    _password: String
+  }}
+
+  _onConfirmClicked(){
+    if(this._username === '123456789' && this._password === '123456'){
+      this._navigateToHome();
+    } else {
+      alert('Invalid login or password.');
+    }
+  }
+
+  _navigateToHome(){
+    window.history.pushState({}, '', '/home');
+    store.dispatch(navigate(window.decodeURIComponent('/home')));
+  }
+
+  _onUserNameChanged(e){
+    this._username = e.detail.value;
+  }
+
+  _onPasswordhanged(e){
+    this._password = e.detail.value;
+  }
+
+  _stateChanged(){
+
+  }
 }
 
 window.customElements.define('ecopay-login', EcopayLogin);
