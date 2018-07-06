@@ -73,7 +73,7 @@ class EcopayFinanceManagement extends PageViewElement {
 
   constructor() {
     super();
-    this._view = 'history';
+    this._view = 'overview';
     this._transactions = [{
       category: 'Bills',
       total: 32,
