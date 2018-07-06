@@ -38,7 +38,7 @@ class MyApp extends connect(store)(LitElement) {
       :host {
         display: block;
 
-        --app-primary-color: #E91E63;
+        --app-primary-color: #4e90ff; //#E91E63;
         --app-secondary-color: #293237;
         --app-dark-text-color: var(--app-secondary-color);
         --app-light-text-color: white;
@@ -46,7 +46,7 @@ class MyApp extends connect(store)(LitElement) {
         --app-section-odd-color: white;
 
         --app-header-background-color: white;
-        --app-footer-background-color: white;
+        --app-footer-background-color: whitesmoke;
         --app-header-text-color: var(--app-dark-text-color);
         --app-footer-text-color: var(--app-dark-text-color);
         --app-header-selected-color: var(--app-primary-color);
@@ -59,6 +59,7 @@ class MyApp extends connect(store)(LitElement) {
 
       .main-content {
         min-height: 100vh;
+        background-color: whitesmoke;
       }
 
       .page {
@@ -68,7 +69,6 @@ class MyApp extends connect(store)(LitElement) {
       .page[active] {
         display: block;
       }
-
 
     </style>
 

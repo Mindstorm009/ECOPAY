@@ -49,7 +49,7 @@ class EcopayPage extends connect(store)(LitElement) {
         @apply --layout-center-center;
       }
       footer {
-        height: 50px;
+        height: 96px;
         width: 100%;
         position: fixed;
         bottom: 0;
@@ -57,7 +57,23 @@ class EcopayPage extends connect(store)(LitElement) {
         background: var(--app-footer-background-color);
         color: var(--app-footer-text-color);
         @apply --layout-horizontal;
-        @apply --layout-justified;
+        @apply --layout-center-center;
+      }
+
+      paper-icon-button.arrow-back {
+        width: 48px;
+        height: 48px;
+      }
+
+      paper-icon-button.footer-btn {
+        height: 72px;
+        width: 72px;
+      }
+
+      .main-title {
+        @apply --paper-font-display1;
+        font-size: 24px;
+        font-weight: bold;
       }
       </style>
 
@@ -65,9 +81,9 @@ class EcopayPage extends connect(store)(LitElement) {
         <app-header slot="header" fixed condenses effects="waterfall">
           <app-toolbar>
             <a href="${backHref}" hidden="${hideBack}" on-click="${(e) => this._onBackClick(e)}">
-              <paper-icon-button icon="arrow-back"></paper-icon-button>
+              <paper-icon-button class="arrow-back" icon="arrow-back"></paper-icon-button>
             </a>
-            <div main-title>${mainTitle}</div>
+            <div class="main-title">${mainTitle}</div>
               <div class="balance-container" hidden="${!showBalance}">
                 <iron-icon icon="account-balance-wallet"></iron-icon>
                 <div>$${_balance}</div>
@@ -80,10 +96,11 @@ class EcopayPage extends connect(store)(LitElement) {
         </main>
         <footer hidden="${hideFooter}">
           <a href="${closeHref}" on-click="${(e) => this._onCloseClick(e)}">
-            <paper-icon-button icon="icons:highlight-off"></paper-icon-button>
+            <paper-icon-button on-tap="${(e) => this._onCloseClick(e)}" class="footer-btn" icon="icons:highlight-off"></paper-icon-button>
           </a>
+          <div style="width: 120px;"></div>
           <a href="${confirmHref}" on-click="${(e) => this._onConfirmClick(e)}">
-            <paper-icon-button icon="av:play-arrow"></paper-icon-button>
+            <paper-icon-button class="footer-btn" icon="av:play-arrow"></paper-icon-button>
           </a>
        </footer>
 

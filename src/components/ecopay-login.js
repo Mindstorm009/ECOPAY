@@ -36,10 +36,9 @@ class EcopayLogin extends connect(store)(PageViewElement) {
       ${SharedStyles}
       <style>
         .main-container {
-          background-color: whitesmoke;
+          
           @apply --layout-vertical;
           @apply --layout-center-center;
-          @apply --layout-fit;
         }
 
         .card {
@@ -51,23 +50,31 @@ class EcopayLogin extends connect(store)(PageViewElement) {
           color: hsl(0, 0%, 50%);
           margin-right: 12px;
         }
+
+        .forgot-password {
+          margin-top: 48px;
+          @apply --layout-self-start;
+        }
+
+        paper-input {
+          padding: 0px 24px;
+        }
+
       </style>
       <ecopay-page mainTitle="Sign In" backHref="/" closeHref="/" confirmHref="javascript:void(0)"
        on-confirm-clicked="${(e) => this._onConfirmClicked(e)}">
         <section class="main-container">
-          <section class="card">
             <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
-            <paper-input label="Mobile Number" allowed-pattern="[0-9]"
-              on-value-changed="${(e) => this._onUserNameChanged(e)}">
-                <iron-icon icon="communication:stay-primary-portrait" slot="prefix"></iron-icon>
-            </paper-input>
-            <paper-input label="Password" type="password"
-            on-value-changed="${(e) => this._onPasswordhanged(e)}">
-                <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
-            </paper-input>
-            <paper-button>Forgot password?</paper-button>
-          <section>
-        </setion>
+        </section>
+        <paper-input label="Mobile Number" allowed-pattern="[0-9]"
+          on-value-changed="${(e) => this._onUserNameChanged(e)}">
+            <iron-icon icon="communication:stay-primary-portrait" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input label="Password" type="password"
+        on-value-changed="${(e) => this._onPasswordhanged(e)}">
+            <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-button class="forgot-password">Forgot password?</paper-button>
       </ecopay-page>
     `;
   }

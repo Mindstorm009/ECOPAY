@@ -17,6 +17,16 @@ export const SharedStyles = html`
     box-sizing: border-box;
   }
 
+  a {
+    text-decoration: none;
+    color: var(--app-primary-color);
+  }
+
+  a:visited: {
+    text-decoration: none;
+    color: black;
+  }
+
   h2 {
     font-size: 24px;
     text-align: center;
@@ -33,6 +43,15 @@ export const SharedStyles = html`
     }
   }
 
+  paper-tab a{
+    @apply --layout-horizontal;
+    @apply --layout-center-center;
+  }
+
+  paper-tab a iron-icon {
+    --iron-icon-height: 32px;
+    --iron-icon-width: 32px;
+  }
   .circle {
     display: block;
     width: 64px;

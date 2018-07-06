@@ -28,6 +28,7 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
+import '@polymer/paper-styles/typography.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import './ecopay-page';
 
@@ -39,10 +40,16 @@ class EcopayHome extends connect(store)(PageViewElement) {
     return html`
       ${SharedStyles}
       <style>
-        paper-tab a{
-          @apply --layout-horizontal;
+        .main-container {
+          @apply --layout-vertical;
           @apply --layout-center-center;
         }
+
+        .greet-user, .balance{
+          @apply --paper-font-headline;
+          margin: 16px;
+        } 
+
       </style>
       <ecopay-page mainTitle="Home" hideBack hideFooter>
         <section>
@@ -52,11 +59,11 @@ class EcopayHome extends connect(store)(PageViewElement) {
             <paper-tab title="Finance managment"><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
           </paper-tabs>
           <section>
-            <section>
-              <h1>Hi User!</h1>
-              <h1>Your eWallet: $${_balance}</h1>
+            <section class="main-container">
+              <div class="greet-user">Hi User!</div>
+              <div class="balance">Your eWallet: $${_balance}</div>
+              <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
             </section>
-            <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
           <section>
         </setion>
       </ecopay-page>
