@@ -39,7 +39,7 @@ class EcopayPage extends connect(store)(LitElement) {
       ${SharedStyles}
       <style>
       app-header{
-
+        background: var(--app-header-background-color);
       }
       .main-content {
         padding-bottom: 50px;
