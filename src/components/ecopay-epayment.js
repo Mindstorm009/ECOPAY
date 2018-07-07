@@ -30,6 +30,7 @@ store.addReducers({
 
 // These are the elements needed by this element.
 import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/iron-icons/editor-icons.js';
@@ -68,8 +69,10 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
       .confirm-container {
         margin: 48px 24px 24px 48px;
       }
-      iron-icon, div[suffix] {
+      iron-image, div[suffix] {
         margin-right: 12px;
+        height: 32px;
+        width: 32px;
       }
 
       paper-input {
@@ -127,13 +130,13 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
               <paper-input label="Key In Amount" type="number" id="amount"
                allowed-pattern="[0-9]" pattern="[0-9]" auto-validate="true"
                on-value-changed="${(e) => this._onAmounthanged(e)}">
-               <iron-icon icon="editor:attach-money" slot="prefix"></iron-icon>
+               <iron-image sizing="cover" src="../../../images/rm_logo.png" slot="prefix"></iron-image>
               </paper-input>
               <paper-input label="Paying To" id="payingTo"
                on-value-changed="${(e) => this._onPayingToChanged(e)}"></paper-input>
               <paper-dropdown-menu label="Paying For" no-animations
               on-selected-item-label-changed="${(e) => this._onSelectedItemLabelChanged(e)}" >
-                <paper-listbox slot="dropdown-content" selected="1" id="payingFor">
+                <paper-listbox slot="dropdown-content" selected="0" id="payingFor">
                   <paper-item>Food & Drinks</paper-item>
                   <paper-item>Shopping</paper-item>
                   <paper-item>Others</paper-item>
@@ -142,7 +145,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
             </section>
             <section class="confirm-container" hidden="${_view !== 'confirmation'}">
               <div class="heading">Confirm payment</div>
-              <div class="value">$ ${_amount}</div>
+              <div class="value">RM${_amount}</div>
               <div class="heading">to</div>
               <div class="value">${_payingTo}</div>
               <div class="heading">for</div>
@@ -197,7 +200,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     _clearFormData() {
         this.shadowRoot.querySelector('#amount').value = '';
         this.shadowRoot.querySelector('#payingTo').value = '';
-        this.shadowRoot.querySelector('#payingFor').selected = 1;
+        this.shadowRoot.querySelector('#payingFor').selected = 0;
         this.shadowRoot.querySelector('#pin').value = '';
     }
 

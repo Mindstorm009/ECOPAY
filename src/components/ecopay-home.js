@@ -75,7 +75,7 @@ class EcopayHome extends connect(store)(PageViewElement) {
           <section>
             <section class="main-container">
               <div class="greet-user">Hi User!</div>
-              <div class="balance">Your eWallet: $${_balance}</div>
+              <div class="balance">Your eWallet: RM${_balance}</div>
               <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
             </section>
           <section>

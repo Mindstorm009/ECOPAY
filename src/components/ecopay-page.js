@@ -86,7 +86,7 @@ class EcopayPage extends connect(store)(LitElement) {
             <div class="main-title" main-title>${mainTitle}</div>
               <div class="balance-container" hidden="${!showBalance}">
                 <iron-icon icon="account-balance-wallet"></iron-icon>
-                <div>$${_balance}</div>
+                <div>RM${_balance}</div>
               </div>
             </div>
           </app-toolbar>
