@@ -12,21 +12,10 @@ import { PAY, RESET } from '../actions/wallet.js';
 
 const defaultTransactions = [{
   category: 'Bills',
-  total: 32,
-  items : [{paidTo: 'Light Bill', date: '04/07/2018', amount: 32}]
-}, {
-  category: 'Food & Drinks',
-  total: 500,
-  items : [{paidTo: 'Good restaurant', date: '04/07/2018', amount: 240},
-        {paidTo: 'Good Coffee', date: '05/07/2018', amount: 260}]
-}, {
-  category: 'Shopping',
-  total: 1200,
-  items : [{paidTo: 'Apple', date: '04/07/2018', amount: 999},
-        {paidTo: 'RayBan', date: '05/07/2018', amount: 51},
-        {paidTo: 'Titan', date: '07/07/2018', amount: 50}]
+  total: 0,
+  items : [{paidTo: 'Light Bill', date: '04/07/2018', amount: 0}]
 }];
-const defaultBalance = 1000;
+const defaultBalance = 500;
 
 let _transactions, _balance;
 
