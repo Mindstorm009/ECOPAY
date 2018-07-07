@@ -37,6 +37,7 @@ import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox.js';
+import '@polymer/paper-toast/paper-toast.js';
 import './ecopay-page';
 
 // These are the shared styles needed by this element.
@@ -131,6 +132,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
           <section>
         </setion>
       </ecopay-page>
+      <paper-toast id="toast"></paper-toast>
     `;
   }
 
@@ -162,20 +164,26 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
 
     _validate(){
       if(!this._amount){
-        alert('Amount is required');
+        this._showToast('Amount is required');
         return false;
       }
 
       if(!this._payingTo){
-        alert('PayingTo is required');
+        this._showToast('PayingTo is required');
         return false;
       }
 
       if(this._amount > this._balance){
-        alert("You haven't enough money");
+        this._showToast("You don't have enough money");
         return false;
       }
       return true;
+    }
+
+    _showToast(message){
+      var toast = this.shadowRoot.querySelector('#toast');
+      toast.text = message;
+      toast.open();
     }
 
     _onClosedClicked(){

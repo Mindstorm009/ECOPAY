@@ -30,7 +30,7 @@ import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/paper-styles/typography.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
@@ -52,7 +52,17 @@ class EcopayHome extends connect(store)(PageViewElement) {
         .greet-user, .balance{
           @apply --paper-font-headline;
           margin: 16px;
-        } 
+        }
+        .signout{
+          position: fixed;
+          bottom: 24px;
+          left: 24px;
+          color: var(--app-primary-color);
+          --paper-button-ink-color: var(--app-primary-color);
+        }
+        .signout iron-icon{
+          margin-right: 5px;
+        }
 
       </style>
       <ecopay-page mainTitle="Home" hideBack hideFooter>
@@ -69,7 +79,7 @@ class EcopayHome extends connect(store)(PageViewElement) {
               <iron-image src="${resolveUrl('images/logo.png')}"></iron-image>
             </section>
           <section>
-          <paper-icon-button icon="exit-to-app" on-click="${(e) => this._onSignOut(e)}"></paper-icon-button>
+          <paper-button class="signout" raised on-click="${(e) => this._onSignOut(e)}"><iron-icon icon="exit-to-app"></iron-icon>Signout</paper-button>
         </setion>
       </ecopay-page>
     `;

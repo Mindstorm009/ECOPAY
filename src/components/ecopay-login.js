@@ -25,6 +25,7 @@ import '@polymer/iron-icons/communication-icons.js';
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-toast/paper-toast.js';
 import './ecopay-page';
 
 // These are the shared styles needed by this element.
@@ -76,6 +77,7 @@ class EcopayLogin extends connect(store)(PageViewElement) {
         </paper-input>
         <paper-button class="forgot-password">Forgot password?</paper-button>
       </ecopay-page>
+      <paper-toast id="toast"></paper-toast>
     `;
   }
 
@@ -88,7 +90,9 @@ class EcopayLogin extends connect(store)(PageViewElement) {
     if(this._username === '123456789' && this._password === '123456'){
       store.dispatch(signin());
     } else {
-      alert('Invalid login or password.');
+      var toast = this.shadowRoot.querySelector('#toast');
+      toast.text = 'Invalid mobile number or password';
+      toast.open();
     }
   }
 

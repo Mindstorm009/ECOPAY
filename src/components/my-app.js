@@ -129,11 +129,15 @@ class MyApp extends connect(store)(LitElement) {
   }
 
   _validateSignIn(){
-    if(!this._signIn && this._page !== 'app' && this._page !== 'signin'){
+    if(!this._page){
+      return;
+    }
+
+    if(localStorage.getItem('signIn') !== 'true' && this._page !== 'app' && this._page !== 'signin'){
       this._navigateToApp();
     }
 
-    if(this._signIn && (this._page === 'app' || this._page === 'signin')){
+    if(localStorage.getItem('signIn') === 'true' && (this._page === 'app' || this._page === 'signin')){
       this._navigateToHome();
     }
   }
