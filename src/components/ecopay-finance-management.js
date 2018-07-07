@@ -12,6 +12,15 @@ import { html } from '@polymer/lit-element';
 import { repeat } from 'lit-html/lib/repeat.js';
 
 import { PageViewElement } from './page-view-element.js';
+import { connect } from 'pwa-helpers/connect-mixin.js';
+
+import { store } from '../store.js';
+
+// These are the actions needed by this element.
+import wallet from '../reducers/wallet.js';
+store.addReducers({
+  wallet
+});
 
 // These are the elements needed by this element.
 import '@polymer/iron-icon/iron-icon.js';
@@ -28,8 +37,8 @@ import './ecopay-transaction-row.js';
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-class EcopayFinanceManagement extends PageViewElement {
-  _render({_view,_transactions}) {
+class EcopayFinanceManagement extends connect(store)(PageViewElement)  {
+  _render({_view,_transactions,_totalSpending}) {
     return html`
       ${SharedStyles}
       <style>
@@ -72,7 +81,7 @@ class EcopayFinanceManagement extends PageViewElement {
             <div class="title">Overview Spending</div>
             <div class="overview-circle">
               <div>$ </div>
-              <div>842.00</div>
+              <div>${_totalSpending}</div>
             </div>
           </section>
           <section hidden="${_view !== 'history'}">
@@ -91,32 +100,35 @@ class EcopayFinanceManagement extends PageViewElement {
 
   static get properties() { return {
     _view: String,
-    _transactions: Array
+    _transactions: Array,
+    _totalSpending: Number
   }}
 
   constructor() {
     super();
     this._view = 'overview';
-    this._transactions = [{
-      category: 'Bills',
-      total: 32,
-      items : [{paidTo: 'Light Bill', date: '04/07/2018', amount: 32}]
-    }, {
-      category: 'Food & Drinks',
-      total: 500,
-      items : [{paidTo: 'Good restaurant', date: '04/07/2018', amount: 240},
-            {paidTo: 'Good Coffee', date: '05/07/2018', amount: 260}]
-    }, {
-      category: 'Shopping',
-      total: 1200,
-      items : [{paidTo: 'Apple', date: '04/07/2018', amount: 999},
-            {paidTo: 'RayBan', date: '05/07/2018', amount: 51},
-            {paidTo: 'Titan', date: '07/07/2018', amount: 50}]
-    }]
+  }
+
+  // This is called every time something is updated in the store.
+  _stateChanged(state) {
+    this._balance = state.wallet.balance;
+    this._transactions = state.wallet.transactions;
+    this._totalSpending = this._computeTotalSpending(this._transactions);
   }
 
   _onSelectedhanged(e){
     this._view = e.detail.value;
+  }
+
+  _computeTotalSpending(transactions){
+    if(!transactions){
+      return 0;
+    }
+    let total = 0, index;
+    for(index = 0; index < transactions.length; index++){
+      total = total + transactions[index].total;
+    }
+    return total;
   }
 }
 

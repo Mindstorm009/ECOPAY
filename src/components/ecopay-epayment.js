@@ -136,6 +136,8 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
                 <paper-listbox slot="dropdown-content" selected="1" id="payingFor">
                   <paper-item>Food & Drinks</paper-item>
                   <paper-item>Shopping</paper-item>
+                  <paper-item>Bills</paper-item>
+                  <paper-item>Hobbies</paper-item>
                   <paper-item>Others</paper-item>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -175,15 +177,18 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
 
     _onTabClick(){
       this.shadowRoot.querySelector('paper-tabs').selected = 0;
-      //this.shadowRoot.querySelector('paper-tabs').notifyResize();
     }
 
+    _getDate(){
+      let d = new Date();
+      return ("0" + d.getDate()).slice(-2) + "/" + ("0"+(d.getMonth()+1)).slice(-2) + "/" + d.getFullYear();
+    }
     _onConfirmClicked(){
 
       if(this._view === 'confirmation'){
         if(this._validatePin()) {
-            store.dispatch(pay(this._amount));
-            this._view = 'asda';
+            store.dispatch(pay(this._amount, this._getDate(), this._selectedItemLabel, this._payingTo));
+            this._view = '';
             this._clearFormData();
             this._navigateToHome();
         }

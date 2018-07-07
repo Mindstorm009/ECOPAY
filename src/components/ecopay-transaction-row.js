@@ -70,7 +70,7 @@ class EcopayTransactionRow extends LitElement {
         </section>
         <iron-collapse opened="${opened}" on-opened-changed="${(e) => this._onOpenedChanged(e)}">
           <section class="table">
-          ${repeat(item.items, (i) => i.date, (i, index) => html`
+          ${repeat(item.items, (i) => i, (i, index) => html`
             <div class="row">
               <div class="paid-to">${i.paidTo}</div>
               <div class="date">${i.date}</div>

@@ -10,9 +10,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 export const PAY = 'PAY';
 
-export const pay = (amount) => (dispatch) => {
+export const pay = (amount, date, category, paidTo) => (dispatch) => {
   dispatch({
     type: PAY,
-    amount
+    amount,
+    date,
+    category,
+    paidTo
   });
 };
