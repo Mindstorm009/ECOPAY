@@ -8,6 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
+
 import { html } from '@polymer/lit-element';
 import { repeat } from 'lit-html/lib/repeat.js';
 
@@ -25,6 +26,7 @@ store.addReducers({
 // These are the elements needed by this element.
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-icons/editor-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
@@ -68,19 +70,24 @@ class EcopayFinanceManagement extends connect(store)(PageViewElement)  {
         .table{
           margin: 48px 12px 0px 12px;
         }
+
+        iron-image {
+          height: 32px;
+          width: 32px;
+        }
       </style>
       <ecopay-page mainTitle="Finance Management"
         backHref="/home" showBalance hideFooter>
         <section>
         <paper-tabs selected="${_view}" attr-for-selected="name" on-selected-changed="${(e) => this._onSelectedhanged(e)}">
-            <paper-tab name="overview" title="Overview Spending"><a href="javascript:void(0)"><iron-icon icon="editor:monetization-on"></iron-icon></a></paper-tab>
+            <paper-tab name="overview" title="Overview Spending"><a href="javascript:void(0)"><iron-image sizing="cover" src="../../../images/rm_logo.png"></iron-image></a></paper-tab>
             <paper-tab name="history" title="History"><a href="javascript:void(0)"><iron-icon icon="icons:assignment"></iron-icon></a></paper-tab>
             <paper-tab name="help" title="Help"><a href="javascript:void(0)"><iron-icon icon="icons:help"></iron-icon></a></paper-tab>
           </paper-tabs>
           <section class="container" hidden="${_view !== 'overview'}">
             <div class="title">Overview Spending</div>
             <div class="overview-circle">
-              <div>$ </div>
+              <div>RM</div>
               <div>${_totalSpending}</div>
             </div>
           </section>

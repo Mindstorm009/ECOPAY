@@ -66,7 +66,7 @@ class EcopayTransactionRow extends LitElement {
       <section class="outer-row" first$="${isFirst}">
         <section class="header" on-click="${(e) => this._toogle(e)}">
           <section>${item.category}</section>
-          <section>$ ${item.total}</section>
+          <section>RM${item.total}</section>
         </section>
         <iron-collapse opened="${opened}" on-opened-changed="${(e) => this._onOpenedChanged(e)}">
           <section class="table">
@@ -74,7 +74,7 @@ class EcopayTransactionRow extends LitElement {
             <div class="row">
               <div class="paid-to">${i.paidTo}</div>
               <div class="date">${i.date}</div>
-              <div class="amount">$ ${i.amount}</div>
+              <div class="amount">RM${i.amount}</div>
             </div>`)}
           </section>
         </iron-collapse>

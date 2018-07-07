@@ -1,7 +1,7 @@
 {
-  "name": "Ecopay",
-  "short_name": "EcoPay",
-  "description": "EcoPay",
+  "name": "ECOPAY",
+  "short_name": "ECOPAY",
+  "description": "ECOPAY",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#3f51b5",
