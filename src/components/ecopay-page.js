@@ -72,7 +72,7 @@ class EcopayPage extends connect(store)(LitElement) {
 
       .main-title {
         @apply --paper-font-display1;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
       }
       </style>
