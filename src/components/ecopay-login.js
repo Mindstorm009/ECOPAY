@@ -17,7 +17,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../store.js';
 
 import {
-  navigate, signin
+  signin
 } from '../actions/app.js';
 
 // These are the elements needed by this element.

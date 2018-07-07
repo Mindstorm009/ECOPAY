@@ -13,8 +13,13 @@ import { PAY } from '../actions/wallet.js';
 const balance = (state = {balance: 100}, action) => {
   switch (action.type) {
     case PAY:
+      if(state.balance < action.amount){
+        return {
+          'balance': state.balance 
+        }
+      }
       return {
-        'balance': state.balance - 1
+        'balance': state.balance - action.amount
       };
     default:
       return state;

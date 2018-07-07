@@ -18,6 +18,10 @@ import {
   navigate
 } from '../actions/app.js';
 
+import {
+  pay
+} from '../actions/wallet.js';
+
 // These are the actions needed by this element.
 import wallet from '../reducers/wallet.js';
 store.addReducers({
@@ -105,6 +109,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
           <section class="main-container"> 
             <section class="container" hidden="${_view === 'confirmation'}">
               <paper-input label="Key In Amount" type="number"
+               allowed-pattern="[0-9]" pattern="[0-9]" auto-validate="true"
                on-value-changed="${(e) => this._onAmounthanged(e)}">
                <iron-icon icon="editor:attach-money" slot="prefix"></iron-icon>
               </paper-input>
@@ -153,7 +158,9 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     }
 
     _onConfirmClicked(){
+
       if(this._view === 'confirmation'){
+        store.dispatch(pay(this._amount));
         this._navigateToHome();
       } else {
         if(this._validate()){
