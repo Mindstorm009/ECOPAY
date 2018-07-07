@@ -76,7 +76,7 @@ class EcopayFinanceManagement extends PageViewElement {
               <ecopay-transaction-row item="${i}"></ecopay-transaction-row>`)}
           </section>
           <section hidden="${_view !== 'help'}">
-            Help
+            
           </section>
         </section>
       </ecopay-page>

@@ -46,10 +46,10 @@ class EcopayMerchant extends PageViewElement {
               Map
             </section>
             <section hidden="${_view !== 'jobs'}">
-              Jobs
+              
             </section>
             <section hidden="${_view !== 'featured'}">
-              Featured
+              
             </section>
           <section>
         </setion>
