@@ -117,7 +117,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
         on-back-clicked="${(e) => this._onBackClicked(e)}"
         closeHref="/home" showBalance>
         <section>
-        <paper-tabs on-click="${(e) => this._onTabClick(e)}" selected="0">
+        <paper-tabs on-click="${(e) => this._onTabClick(e)}" selected="0" no-slide >
           <paper-tab title="ePayment"><a href="/epayment"><iron-icon icon="credit-card"></iron-icon></a></paper-tab>
           <paper-tab title="Merchant"><a href="/merchant"><iron-icon icon="maps:restaurant"></iron-icon></a></paper-tab>
           <paper-tab title="Finance managment"><a href="/finance-management"><iron-icon icon="thumb-up"></iron-icon></a></paper-tab>
@@ -174,7 +174,8 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     }
 
     _onTabClick(){
-      this.shadowRoot.querySelector('paper-tabs').selected = 0; 
+      this.shadowRoot.querySelector('paper-tabs').selected = 0;
+      //this.shadowRoot.querySelector('paper-tabs').notifyResize();
     }
 
     _onConfirmClicked(){
