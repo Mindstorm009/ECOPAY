@@ -20,6 +20,7 @@
     "test:regenerate_screenshots": "mocha test/integration/screenshots-baseline/regenerate.js --timeout=15000"
   },
   "dependencies": {
+    "@em-polymer/google-map": "^3.0.0-pre.5",
     "@polymer/app-layout": "^3.0.0-pre.21",
     "@polymer/iron-collapse": "^3.0.0-pre.21",
     "@polymer/iron-flex-layout": "^3.0.0-pre.21",

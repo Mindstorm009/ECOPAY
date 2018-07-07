@@ -19,6 +19,7 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/editor-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
+import '@polymer/paper-styles/typography.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import './ecopay-page.js';
@@ -32,9 +33,27 @@ class EcopayFinanceManagement extends PageViewElement {
     return html`
       ${SharedStyles}
       <style>
-        paper-tab a{
-          @apply --layout-horizontal;
+        .container{
+          @apply --layout-vertical;
           @apply --layout-center-center;
+        }
+
+        .title {
+          @apply --paper-font-headline;
+          margin: 16px 0px 0px 16px;
+          @apply --layout-self-start;
+          font-weight: bold;
+        }
+
+        .overview-circle {
+          @apply --layout-vertical;
+          @apply --layout-center-center;
+          border: 2px solid black;
+          border-radius: 50%;
+          height: 150px;
+          width: 150px;
+          margin-top: 24px;
+          @apply --paper-font-display1;
         }
       </style>
       <ecopay-page mainTitle="Finance Management"
@@ -45,23 +64,21 @@ class EcopayFinanceManagement extends PageViewElement {
             <paper-tab name="history" title="History"><a href="javascript:void(0)"><iron-icon icon="icons:assignment"></iron-icon></a></paper-tab>
             <paper-tab name="help" title="Help"><a href="javascript:void(0)"><iron-icon icon="icons:help"></iron-icon></a></paper-tab>
           </paper-tabs>
-          <section>
-            <section hidden="${_view !== 'overview'}">
-              <div>Overview Spending</div>
-              <div class="overview-circle">
-                <div>$ </div>
-                <div>842.00</div>
-              </div>
-            </section>
-            <section hidden="${_view !== 'history'}">
-              ${repeat(_transactions, (i) => i.category, (i, index) => html`
-                <ecopay-transaction-row item="${i}"></ecopay-transaction-row>`)}
-            </section>
-            <section hidden="${_view !== 'help'}">
-              Help
-            </section>
+          <section class="container" hidden="${_view !== 'overview'}">
+            <div class="title">Overview Spending</div>
+            <div class="overview-circle">
+              <div>$ </div>
+              <div>842.00</div>
+            </div>
           </section>
-        </setion>
+          <section hidden="${_view !== 'history'}">
+            ${repeat(_transactions, (i) => i.category, (i, index) => html`
+              <ecopay-transaction-row item="${i}"></ecopay-transaction-row>`)}
+          </section>
+          <section hidden="${_view !== 'help'}">
+            Help
+          </section>
+        </section>
       </ecopay-page>
     `;
   }
