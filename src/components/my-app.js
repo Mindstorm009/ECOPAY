@@ -29,7 +29,6 @@ import {
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
-import { menuIcon } from './my-icons.js';
 import './snack-bar.js';
 
 class MyApp extends connect(store)(LitElement) {

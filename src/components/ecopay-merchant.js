@@ -17,7 +17,6 @@ import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/iron-icons/social-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
-import '@em-polymer/google-map/google-map.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import './ecopay-page';
 
@@ -44,9 +43,7 @@ class EcopayMerchant extends PageViewElement {
           </paper-tabs>
           <section>
             <section hidden="${_view !== 'map'}">
-            <google-map fit-to-markers slot="markers" api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
-            <google-map-marker slot="markers" latitude="37.78" longitude="-122.4" draggable="true"></google-map-marker>
-          </google-map>
+              Map
             </section>
             <section hidden="${_view !== 'jobs'}">
               Jobs

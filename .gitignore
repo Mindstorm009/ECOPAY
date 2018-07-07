@@ -63,3 +63,4 @@ typings/
 __MACOSX/
 
 build/
+.DS_Store
