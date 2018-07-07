@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { PAY } from '../actions/wallet.js';
+import { PAY, RESET } from '../actions/wallet.js';
 
 const defaultTransactions = [{
   category: 'Bills',
@@ -75,8 +75,13 @@ const addTransaction = (transactions, category, paidTo, date, amount) => {
   return transactions.slice();
 }
 
-const balance = (state = {balance: _balance, transactions: _transactions}, action) => {
+const balance = (state = {balance: _balance, transactions: _transactions.slice()}, action) => {
   switch (action.type) {
+    case RESET:
+    return {
+      'balance': defaultBalance,
+      'transactions': defaultTransactions.slice()
+    }
     case PAY:
       action.amount = parseInt(action.amount);
       if(state.balance < action.amount){

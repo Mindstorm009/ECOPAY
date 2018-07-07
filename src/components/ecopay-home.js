@@ -18,6 +18,10 @@ import {
   signout
 } from '../actions/app.js';
 
+import {
+  reset
+} from '../actions/wallet.js';
+
 // These are the actions needed by this element.
 import wallet from '../reducers/wallet.js';
 store.addReducers({
@@ -99,6 +103,7 @@ class EcopayHome extends connect(store)(PageViewElement) {
     }
 
     _onSignOut(){
+      store.dispatch(reset());
       store.dispatch(signout());
     }
 }

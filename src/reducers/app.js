@@ -28,6 +28,8 @@ const app = (state = {signin:false,drawerOpened: false}, action) => {
       };
     case SIGNOUT:
       localStorage.removeItem('signIn');
+      localStorage.removeItem('balance');
+      localStorage.removeItem('transactions');
       return {
         ...state,
         signin: false

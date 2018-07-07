@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 export const PAY = 'PAY';
+export const RESET = 'RESET';
 
 export const pay = (amount, date, category, paidTo) => (dispatch) => {
   dispatch({
@@ -17,5 +18,11 @@ export const pay = (amount, date, category, paidTo) => (dispatch) => {
     date,
     category,
     paidTo
+  });
+};
+
+export const reset = () => (dispatch) => {
+  dispatch({
+    type: RESET
   });
 };
