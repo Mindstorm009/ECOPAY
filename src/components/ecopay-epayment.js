@@ -94,6 +94,22 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
         margin: 4px;
         font-weight: bold;
       }
+      
+      .pin-container {
+          @apply --layout-self-center;
+          @apply --layout-vertical;
+          @apply --layout-center-center;
+          margin-top: 75px;
+          @apply --paper-font-title;
+          font-weight: bold;
+        }
+        #pin {
+            text-align: center;
+            width: 170px;
+        }
+        #pin .input-element {
+            font-size: 50px;
+        }
       </style>
       <ecopay-page mainTitle="ePayment - Pay"
         on-confirm-clicked="${(e) => this._onConfirmClicked(e)}"
@@ -108,16 +124,16 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
         </paper-tabs>
           <section class="main-container"> 
             <section class="container" hidden="${_view === 'confirmation'}">
-              <paper-input label="Key In Amount" type="number"
+              <paper-input label="Key In Amount" type="number" id="amount"
                allowed-pattern="[0-9]" pattern="[0-9]" auto-validate="true"
                on-value-changed="${(e) => this._onAmounthanged(e)}">
                <iron-icon icon="editor:attach-money" slot="prefix"></iron-icon>
               </paper-input>
-              <paper-input label="Paying To"
+              <paper-input label="Paying To" id="payingTo"
                on-value-changed="${(e) => this._onPayingToChanged(e)}"></paper-input>
               <paper-dropdown-menu label="Paying For" no-animations
               on-selected-item-label-changed="${(e) => this._onSelectedItemLabelChanged(e)}" >
-                <paper-listbox slot="dropdown-content" selected="1">
+                <paper-listbox slot="dropdown-content" selected="1" id="payingFor">
                   <paper-item>Food & Drinks</paper-item>
                   <paper-item>Shopping</paper-item>
                   <paper-item>Others</paper-item>
@@ -131,8 +147,12 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
               <div class="value">${_payingTo}</div>
               <div class="heading">for</div>
               <div class="value">${_selectedItemLabel}</div>
-              <!-- <div>Enter pin to confirm</div>
-              <paper-input label="" type="number" maxlength="6"></paper-input> -->
+              <div class="pin-container">
+                <div>Enter pin to confirm</div>
+                <paper-input type="password" id="pin"
+                 allowed-pattern="[0-9]" pattern="[0-9]" auto-validate="true"
+                 maxlength="6"></paper-input>
+               </div> 
             </section>
           <section>
         </setion>
@@ -160,13 +180,24 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     _onConfirmClicked(){
 
       if(this._view === 'confirmation'){
-        store.dispatch(pay(this._amount));
-        this._navigateToHome();
+        if(this._validatePin()) {
+            store.dispatch(pay(this._amount));
+            this._view = 'asda';
+            this._clearFormData();
+            this._navigateToHome();
+        }
       } else {
         if(this._validate()){
           this._view = 'confirmation';
         }     
       }
+    }
+
+    _clearFormData() {
+        this.shadowRoot.querySelector('#amount').value = '';
+        this.shadowRoot.querySelector('#payingTo').value = '';
+        this.shadowRoot.querySelector('#payingFor').selected = 1;
+        this.shadowRoot.querySelector('#pin').value = '';
     }
 
     _validate(){
@@ -187,6 +218,17 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
       return true;
     }
 
+    _validatePin(e) {
+        var pin = this.shadowRoot.querySelector('#pin');
+        if(pin.value != '123456' ){
+            this._showToast('Please enter a valid pin');
+            pin.focus();
+            return false;
+        }
+
+        return true;
+    }
+
     _showToast(message){
       var toast = this.shadowRoot.querySelector('#toast');
       toast.text = message;
@@ -194,6 +236,7 @@ class EcopayEPayment extends connect(store)(PageViewElement) {
     }
 
     _onClosedClicked(){
+      this._clearFormData();
       this._view = 'form';
     }
 
