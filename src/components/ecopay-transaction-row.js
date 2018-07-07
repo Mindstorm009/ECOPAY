@@ -59,6 +59,9 @@ class EcopayTransactionRow extends LitElement {
         .table{
           margin-left: 12px;
         }
+        iron-icon {
+          margin-top: 11px;
+        }
       </style>
       <section class="outer-row" first$="${isFirst}">
         <section class="header" on-click="${(e) => this._toogle(e)}">
