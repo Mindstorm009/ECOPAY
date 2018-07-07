@@ -95,7 +95,7 @@ class EcopayHome extends connect(store)(PageViewElement) {
     }
 
     _clickHandler(){
-      this.shadowRoot.querySelector('paper-tabs').selected = null;
+      this.shadowRoot.querySelector('paper-tabs').selected = '-1';
     }
 
     _onSignOut(){

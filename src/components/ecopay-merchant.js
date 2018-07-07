@@ -18,7 +18,9 @@ import '@polymer/iron-icons/social-icons.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '../components/good-map.js';
 import './ecopay-page';
+
 
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
@@ -32,6 +34,11 @@ class EcopayMerchant extends PageViewElement {
           @apply --layout-horizontal;
           @apply --layout-center-center;
         }
+
+        good-map {
+          display: block;
+          height: 600px;
+        }
       </style>
       <ecopay-page mainTitle="${ this._getTitle(_view) }"
         backHref="/home" showBalance hideFooter>
@@ -43,7 +50,12 @@ class EcopayMerchant extends PageViewElement {
           </paper-tabs>
           <section>
             <section hidden="${_view !== 'map'}">
-              Map
+            <good-map
+              api-key="AIzaSyCTozTMXyzTNcvdUfdFBlePm2-QDf6-1Vk"
+              latitude="37.783031141314,"
+              longitude="-122.41820816918948"
+              zoom="15"
+            ></good-map>
             </section>
             <section hidden="${_view !== 'jobs'}">
               
