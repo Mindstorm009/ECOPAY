@@ -21,14 +21,47 @@ import '@polymer/iron-collapse/iron-collapse.js';
 import { SharedStyles } from './shared-styles.js';
 
 class EcopayTransactionRow extends LitElement {
-  _render({opened,item}) {
+  _render({opened,item,isFirst}) {
     return html`
       ${SharedStyles}
       <style>
-       
+        :host {
+          @apply --layout-horizontal;
+        }
+        .header{
+          @apply --layout-horizontal;
+          @apply --layout-justified;
+          padding: 8px 0px;
+          font-size: 18px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        .row{
+          @apply --layout-horizontal;
+          padding: 4px 0px;
+        }
+        .row div{
+          @apply --layout-flex;
+        }
+        .row .date{
+          text-align: right;
+        }
+        .row .amount{
+          text-align: right;
+        }
+        .outer-row[first="true"]{
+          border-top: 1px solid black;
+        }
+        .outer-row{
+          border-bottom: 1px solid black;
+          @apply --layout-flex;
+        }
+        .table{
+          margin-left: 12px;
+        }
       </style>
-      <section class="row">
-        <section class="header" on-click="${(e) => this._onRowClick(e)}">
+      <section class="outer-row" first$="${isFirst}">
+        <section class="header" on-click="${(e) => this._toogle(e)}">
           <section>${item.category}</section>
           <section>$ ${item.total}</section>
         </section>
@@ -36,21 +69,22 @@ class EcopayTransactionRow extends LitElement {
           <section class="table">
           ${repeat(item.items, (i) => i.date, (i, index) => html`
             <div class="row">
-              <div>${i.paidTo}</div>
-              <div>${i.date}</div>
-              <div>$ ${i.amount}</div>
+              <div class="paid-to">${i.paidTo}</div>
+              <div class="date">${i.date}</div>
+              <div class="amount">$ ${i.amount}</div>
             </div>`)}
           </section>
         </iron-collapse>
       </section>
-      <iron-icon icon="hardware:keyboard-arrow-right" hidden="${opened}"></iron-icon>
-      <iron-icon icon="hardware:keyboard-arrow-down" hidden="${!opened}"></iron-icon>
+      <iron-icon icon="hardware:keyboard-arrow-right" hidden="${opened}" on-click="${(e) => this._toogle(e)}"></iron-icon>
+      <iron-icon icon="hardware:keyboard-arrow-down" hidden="${!opened}" on-click="${(e) => this._toogle(e)}"></iron-icon>
     `;
   }
 
   static get properties() { return {
     item: Object,
-    opened: Boolean
+    opened: Boolean,
+    isFirst: Boolean
   }}
 
   constructor() {
@@ -58,7 +92,7 @@ class EcopayTransactionRow extends LitElement {
     this.opened = false;
   }
 
-  _onRowClick(){
+  _toogle(){
     this.opened = !this.opened;
   }
 

@@ -55,6 +55,10 @@ class EcopayFinanceManagement extends PageViewElement {
           margin-top: 24px;
           @apply --paper-font-display1;
         }
+
+        .table{
+          margin: 48px 12px 0px 12px;
+        }
       </style>
       <ecopay-page mainTitle="Finance Management"
         backHref="/home" showBalance hideFooter>
@@ -72,8 +76,10 @@ class EcopayFinanceManagement extends PageViewElement {
             </div>
           </section>
           <section hidden="${_view !== 'history'}">
+           <section class="table">
             ${repeat(_transactions, (i) => i.category, (i, index) => html`
-              <ecopay-transaction-row item="${i}"></ecopay-transaction-row>`)}
+              <ecopay-transaction-row item="${i}" isFirst="${ index === 0 }"></ecopay-transaction-row>`)}
+           <section>
           </section>
           <section hidden="${_view !== 'help'}">
             
@@ -90,7 +96,7 @@ class EcopayFinanceManagement extends PageViewElement {
 
   constructor() {
     super();
-    this._view = 'overview';
+    this._view = 'history';
     this._transactions = [{
       category: 'Bills',
       total: 32,
@@ -100,6 +106,12 @@ class EcopayFinanceManagement extends PageViewElement {
       total: 500,
       items : [{paidTo: 'Good restaurant', date: '04/07/2018', amount: 240},
             {paidTo: 'Good Coffee', date: '05/07/2018', amount: 260}]
+    }, {
+      category: 'Shopping',
+      total: 1200,
+      items : [{paidTo: 'Apple', date: '04/07/2018', amount: 999},
+            {paidTo: 'RayBan', date: '05/07/2018', amount: 51},
+            {paidTo: 'Titan', date: '07/07/2018', amount: 50}]
     }]
   }
 
